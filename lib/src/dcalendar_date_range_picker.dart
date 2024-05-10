@@ -4,10 +4,9 @@ import 'package:flutter/gestures.dart' show DragStartBehavior;
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
-import 'package:persian_datetime_picker/src/date/shamsi_date.dart';
-
-import 'pdate_utils.dart' as utils;
-import 'pdate_utils.dart';
+import 'package:dari_datetime_picker/src/date/shamsi_date.dart';
+import 'ddate_utils.dart' as utils;
+import 'ddate_utils.dart';
 
 const Duration _monthScrollDuration = Duration(milliseconds: 200);
 
@@ -24,9 +23,9 @@ const double _maxCalendarWidthPortrait = 480.0;
 //
 // This is not publicly exported (see pickers.dart), as it is an
 // internal component used by [showDateRangePicker].
-class PCalendarDateRangePicker extends StatefulWidget {
+class DCalendarDateRangePicker extends StatefulWidget {
   /// Creates a scrollable calendar grid for picking date ranges.
-  PCalendarDateRangePicker({
+  DCalendarDateRangePicker({
     Key? key,
     Jalali? initialStartDate,
     Jalali? initialEndDate,
@@ -74,11 +73,11 @@ class PCalendarDateRangePicker extends StatefulWidget {
   final ValueChanged<Jalali?> onEndDateChanged;
 
   @override
-  State<PCalendarDateRangePicker> createState() =>
-      _PCalendarDateRangePickerState();
+  State<DCalendarDateRangePicker> createState() =>
+      _DCalendarDateRangePickerState();
 }
 
-class _PCalendarDateRangePickerState extends State<PCalendarDateRangePicker> {
+class _DCalendarDateRangePickerState extends State<DCalendarDateRangePicker> {
   final GlobalKey _scrollViewKey = GlobalKey();
   Jalali? _startDate;
   Jalali? _endDate;

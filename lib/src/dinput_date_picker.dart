@@ -3,16 +3,16 @@
 // found in the LICENSE file.
 
 import 'package:flutter/material.dart';
-import 'package:persian_datetime_picker/src/date/shamsi_date.dart';
+import 'package:dari_datetime_picker/src/date/shamsi_date.dart';
 
-import 'pdate_picker_common.dart';
-import 'pdate_utils.dart' as utils;
-import 'pdate_utils.dart';
+import 'ddate_picker_common.dart';
+import 'ddate_utils.dart' as utils;
+import 'ddate_utils.dart';
 
 const double _inputPortraitHeight = 98.0;
 const double _inputLandscapeHeight = 108.0;
 
-class PInputDatePickerFormField extends StatefulWidget {
+class DInputDatePickerFormField extends StatefulWidget {
   /// Creates a [TextFormField] configured to accept and validate a date.
   ///
   /// If the optional [initialDate] is provided, then it will be used to populate
@@ -26,7 +26,7 @@ class PInputDatePickerFormField extends StatefulWidget {
   ///
   /// [firstDate], [lastDate], and [autofocus] must be non-null.
   ///
-  PInputDatePickerFormField({
+  DInputDatePickerFormField({
     Key? key,
     Jalali? initialDate,
     required Jalali firstDate,
@@ -76,7 +76,7 @@ class PInputDatePickerFormField extends StatefulWidget {
   final ValueChanged<Jalali?>? onDateSaved;
 
   /// Function to provide full control over which [Jalali] can be selected.
-  final PSelectableDayPredicate? selectableDayPredicate;
+  final DSelectableDayPredicate? selectableDayPredicate;
 
   /// The error text displayed if the entered date is not in the correct format.
   final String? errorFormatText;
@@ -103,11 +103,11 @@ class PInputDatePickerFormField extends StatefulWidget {
   final bool autofocus;
 
   @override
-  State<PInputDatePickerFormField> createState() =>
+  State<DInputDatePickerFormField> createState() =>
       _InputDatePickerFormFieldState();
 }
 
-class _InputDatePickerFormFieldState extends State<PInputDatePickerFormField> {
+class _InputDatePickerFormFieldState extends State<DInputDatePickerFormField> {
   final TextEditingController _controller = TextEditingController();
   Jalali? _selectedDate;
   String? _inputText;

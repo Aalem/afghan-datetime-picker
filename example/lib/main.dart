@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:persian_datetime_picker/persian_datetime_picker.dart';
+import 'package:dari_datetime_picker/dari_datetime_picker.dart';
 
 final ThemeData androidTheme = new ThemeData(
   fontFamily: 'Dana',
@@ -37,6 +37,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   void initState() {
     super.initState();
+    CalendarConfig.setCalendarLanguage(Language.Dari) ;
     label = 'انتخاب تاریخ زمان';
   }
 
@@ -74,14 +75,14 @@ class _MyHomePageState extends State<MyHomePage> {
                     children: [
                       imageButton(
                         onTap: () async {
-                          Jalali? picked = await showPersianDatePicker(
+                          Jalali? picked = await showDariDatePicker(
                               context: context,
                               initialDate: Jalali.now(),
                               firstDate: Jalali(1385, 8),
                               lastDate: Jalali(1450, 9),
                               initialEntryMode:
-                                  PDatePickerEntryMode.calendarOnly,
-                              initialDatePickerMode: PDatePickerMode.year,
+                                  DDatePickerEntryMode.calendarOnly,
+                              initialDatePickerMode: DDatePickerMode.day,
                               builder: (context, child) {
                                 return Theme(
                                   data: ThemeData(
@@ -102,6 +103,25 @@ class _MyHomePageState extends State<MyHomePage> {
                           }
                         },
                         image: '08',
+                      ),
+                      imageButton(
+                        onTap: () async {
+                          var picked = await showDariDateRangePicker(
+                            context: context,
+                            initialEntryMode: DDatePickerEntryMode.input,
+                            initialDateRange: JalaliRange(
+                              start: Jalali(1400, 1, 2),
+                              end: Jalali(1400, 1, 10),
+                            ),
+                            firstDate: Jalali(1385, 8),
+                            lastDate: Jalali(1450, 9),
+                          );
+                          setState(() {
+                            label =
+                            "${picked?.start?.toJalaliDateTime() ?? ""} ${picked?.end?.toJalaliDateTime() ?? ""}";
+                          });
+                        },
+                        image: '06',
                       ),
                       imageButton(
                         onTap: () async {
@@ -152,8 +172,8 @@ class _MyHomePageState extends State<MyHomePage> {
                                     ),
                                     Expanded(
                                       child: Container(
-                                        child: PCupertinoDatePicker(
-                                          mode: PCupertinoDatePickerMode
+                                        child: DCupertinoDatePicker(
+                                          mode: DCupertinoDatePickerMode
                                               .dateAndTime,
                                           onDateTimeChanged: (Jalali dateTime) {
                                             tempPickedDate = dateTime;
@@ -177,7 +197,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       ),
                       imageButton(
                         onTap: () async {
-                          var picked = await showPersianTimePicker(
+                          var picked = await showDariTimePicker(
                             context: context,
                             initialTime: TimeOfDay.now(),
                             initialEntryMode: PTimePickerEntryMode.input,
@@ -251,8 +271,8 @@ class _MyHomePageState extends State<MyHomePage> {
                                     ),
                                     Expanded(
                                       child: Container(
-                                        child: PCupertinoDatePicker(
-                                          mode: PCupertinoDatePickerMode.time,
+                                        child: DCupertinoDatePicker(
+                                          mode: DCupertinoDatePickerMode.time,
                                           onDateTimeChanged: (Jalali dateTime) {
                                             tempPickedDate = dateTime;
                                           },
@@ -281,7 +301,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     children: [
                       imageButton(
                         onTap: () async {
-                          var picked = await showPersianDateRangePicker(
+                          var picked = await showDariDateRangePicker(
                             context: context,
                             initialDateRange: JalaliRange(
                               start: Jalali(1400, 1, 2),
@@ -299,7 +319,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       ),
                       imageButton(
                         onTap: () async {
-                          var picked = await showPersianTimePicker(
+                          var picked = await showDariTimePicker(
                             context: context,
                             initialTime: TimeOfDay.now(),
                             builder: (BuildContext context, Widget? child) {
@@ -318,9 +338,9 @@ class _MyHomePageState extends State<MyHomePage> {
                       ),
                       imageButton(
                         onTap: () async {
-                          var picked = await showPersianDateRangePicker(
+                          var picked = await showDariDateRangePicker(
                             context: context,
-                            initialEntryMode: PDatePickerEntryMode.input,
+                            initialEntryMode: DDatePickerEntryMode.input,
                             initialDateRange: JalaliRange(
                               start: Jalali(1400, 1, 2),
                               end: Jalali(1400, 1, 10),

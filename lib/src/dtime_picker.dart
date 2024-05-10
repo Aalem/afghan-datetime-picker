@@ -2192,7 +2192,7 @@ class _TimePickerDialogState extends State<_TimePickerDialog> {
 ///    date picker.
 ///  * [TimePickerThemeData], which allows you to customize the colors,
 ///    typography, and shape of the time picker.
-Future<TimeOfDay?> showPersianTimePicker({
+Future<TimeOfDay?> showDariTimePicker({
   required BuildContext context,
   required TimeOfDay initialTime,
   TransitionBuilder? builder,

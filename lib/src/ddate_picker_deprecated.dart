@@ -8,10 +8,9 @@ import 'dart:math' as math;
 import 'package:flutter/gestures.dart' show DragStartBehavior;
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:persian_datetime_picker/src/date/shamsi_date.dart';
-
-import 'pdate_picker_common.dart';
-import 'pdate_utils.dart';
+import 'package:dari_datetime_picker/src/date/shamsi_date.dart';
+import 'ddate_picker_common.dart';
+import 'ddate_utils.dart';
 
 const Duration _kMonthScrollDuration = Duration(milliseconds: 200);
 const double _kDayPickerRowHeight = 42.0;
@@ -63,11 +62,11 @@ const _DayPickerGridDelegate _kDayPickerGridDelegate = _DayPickerGridDelegate();
 ///
 @Deprecated('Use CalendarDatePicker instead. '
     'This feature was deprecated after v1.15.3.')
-class PDayPicker extends StatelessWidget {
+class DDayPicker extends StatelessWidget {
   /// Creates a day picker.
   ///
   /// Rarely used directly. Instead, typically used as part of a [MonthPicker].
-  PDayPicker({
+  DDayPicker({
     Key? key,
     required this.selectedDate,
     required this.currentDate,
@@ -103,7 +102,7 @@ class PDayPicker extends StatelessWidget {
   final Jalali displayedMonth;
 
   /// Optional user supplied predicate function to customize selectable days.
-  final PSelectableDayPredicate? selectableDayPredicate;
+  final DSelectableDayPredicate? selectableDayPredicate;
 
   /// Determines the way that drag start behavior is handled.
   ///
@@ -364,12 +363,12 @@ class PDayPicker extends StatelessWidget {
 ///
 @Deprecated('Use CalendarDatePicker instead. '
     'This feature was deprecated after v1.15.3.')
-class PMonthPicker extends StatefulWidget {
+class DMonthPicker extends StatefulWidget {
   /// Creates a month picker.
   ///
   /// Rarely used directly. Instead, typically used as part of the dialog shown
   /// by [showDatePicker].
-  PMonthPicker({
+  DMonthPicker({
     Key? key,
     required this.selectedDate,
     required this.onChanged,
@@ -397,17 +396,17 @@ class PMonthPicker extends StatefulWidget {
   final Jalali lastDate;
 
   /// Optional user supplied predicate function to customize selectable days.
-  final PSelectableDayPredicate? selectableDayPredicate;
+  final DSelectableDayPredicate? selectableDayPredicate;
 
   /// {@macro flutter.widgets.scrollable.dragStartBehavior}
   final DragStartBehavior dragStartBehavior;
 
   @override
-  State<PMonthPicker> createState() => _MonthPickerState();
+  State<DMonthPicker> createState() => _MonthPickerState();
 }
 
 // ignore: deprecated_member_use_from_same_package
-class _MonthPickerState extends State<PMonthPicker>
+class _MonthPickerState extends State<DMonthPicker>
     with SingleTickerProviderStateMixin {
   static final Animatable<double> _chevronOpacityTween =
       Tween<double>(begin: 1.0, end: 0.0)
@@ -433,7 +432,7 @@ class _MonthPickerState extends State<PMonthPicker>
 
   @override
   // ignore: deprecated_member_use_from_same_package
-  void didUpdateWidget(PMonthPicker oldWidget) {
+  void didUpdateWidget(DMonthPicker oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (widget.selectedDate != oldWidget.selectedDate) {
       final int monthPage = _monthDelta(widget.firstDate, widget.selectedDate);
@@ -490,7 +489,7 @@ class _MonthPickerState extends State<PMonthPicker>
   Widget _buildItems(BuildContext context, int index) {
     final Jalali month = _addMonthsToMonthDate(widget.firstDate, index);
     // ignore: deprecated_member_use_from_same_package
-    return PDayPicker(
+    return DDayPicker(
       key: ValueKey<Jalali>(month),
       selectedDate: widget.selectedDate,
       currentDate: _todayDate,
@@ -653,7 +652,7 @@ class _MonthPickerSortKey extends OrdinalSortKey {
 ///
 @Deprecated('Use CalendarDatePicker instead. '
     'This feature was deprecated after v1.15.3.')
-class PYearPicker extends StatefulWidget {
+class DYearPicker extends StatefulWidget {
   /// Creates a year picker.
   ///
   /// The [selectedDate] and [onChanged] arguments must not be null. The
@@ -661,7 +660,7 @@ class PYearPicker extends StatefulWidget {
   ///
   /// Rarely used directly. Instead, typically used as part of the dialog shown
   /// by [showDatePicker].
-  PYearPicker({
+  DYearPicker({
     Key? key,
     required this.selectedDate,
     required this.onChanged,
@@ -689,11 +688,11 @@ class PYearPicker extends StatefulWidget {
   final DragStartBehavior dragStartBehavior;
 
   @override
-  State<PYearPicker> createState() => _YearPickerState();
+  State<DYearPicker> createState() => _YearPickerState();
 }
 
 // ignore: deprecated_member_use_from_same_package
-class _YearPickerState extends State<PYearPicker> {
+class _YearPickerState extends State<DYearPicker> {
   static const double _itemExtent = 50.0;
   ScrollController? scrollController;
 

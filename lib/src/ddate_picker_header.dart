@@ -23,9 +23,9 @@ const double _headerPaddingLandscape = 16.0;
 ///
 /// [helpText], [orientation], [icon], [onIconPressed] are required and must be
 /// non-null.
-class PDatePickerHeader extends StatelessWidget {
+class DDatePickerHeader extends StatelessWidget {
   /// Creates a header for use in a date picker dialog.
-  const PDatePickerHeader({
+  const DDatePickerHeader({
     Key? key,
     required this.helpText,
     required this.titleText,

@@ -4,6 +4,8 @@
 
 library jalali_formatter;
 
+import 'package:dari_datetime_picker/src/config.dart';
+
 import '../date_formatter.dart';
 import '../jalali/jalali_date.dart';
 
@@ -12,8 +14,24 @@ class JalaliFormatter extends DateFormatter {
   /// make a [JalaliFormatter] from [Jalali] date
   JalaliFormatter(Jalali date) : super(date);
 
-  /// Jalali month names
-  static const List<String> _monthNames = [
+  /// Jalali pashto month names
+  static const List<String> _pashtoMonths = <String>[
+    'وری',
+    'غویی',
+    'غبرګل',
+    'چنګاښ',
+    'زمری',
+    'وږی',
+    'تله',
+    'لندی',
+    'سلواغه',
+    'اوبه',
+    'جوب',
+    'زمونږ',
+  ];
+
+  /// Jalali persian month names
+  static const List<String> _persianMonthNames = [
     'فروردین',
     'اردیبهشت',
     'خرداد',
@@ -28,8 +46,24 @@ class JalaliFormatter extends DateFormatter {
     'اسفند',
   ];
 
+  /// Dari month names
+  static const List<String> _dariMonthNames = [
+    'حمل',
+    'ثور',
+    'جوزا',
+    'سرطان',
+    'اسد',
+    'سنبله',
+    'میزان',
+    'عقرب',
+    'قوس',
+    'جدی',
+    'دلو',
+    'حوت',
+  ];
+
   /// Jalali week day names
-  static const List<String> _weekDayNames = [
+  static const List<String> _persianWeekDayNames = [
     'شنبه',
     'یک شنبه',
     'دو شنبه',
@@ -39,15 +73,34 @@ class JalaliFormatter extends DateFormatter {
     'جمعه',
   ];
 
+  /// Pashto week day names
+  static const List<String> _pashtoWeekdays = <String>[
+    'اتوار',
+    'پیر',
+    'منځنه',
+    'بودو',
+    'پنجمه',
+    'جمعه',
+    'اونګ',
+  ];
+
+
   /// Jalali month name
   @override
   String get mN {
-    return _monthNames[date.month - 1];
+    switch(CalendarConfig.calendarLanguage){
+      case Language.Dari:
+        return _dariMonthNames[date.month - 1];
+      case Language.Pashto:
+        return _pashtoMonths[date.month - 1];
+      case Language.Persian:
+        return _persianMonthNames[date.month - 1];
+    }
   }
 
   /// Jalali week day name
   @override
   String get wN {
-    return _weekDayNames[date.weekDay - 1];
+    return _persianWeekDayNames[date.weekDay - 1];
   }
 }

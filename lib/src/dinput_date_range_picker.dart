@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:persian_datetime_picker/src/date/shamsi_date.dart';
+import 'package:dari_datetime_picker/src/date/shamsi_date.dart';
 
-import 'pdate_utils.dart' as utils;
+import 'ddate_utils.dart' as utils;
 
 /// Provides a pair of text fields that allow the user to enter the start and
 /// end dates that represent a range of dates.
 //
 // This is not publicly exported (see pickers.dart), as it is just an
 // internal component used by [showDateRangePicker].
-class PInputDateRangePicker extends StatefulWidget {
+class DInputDateRangePicker extends StatefulWidget {
   /// Creates a row with two text fields configured to accept the start and end dates
   /// of a date range.
-  PInputDateRangePicker({
+  DInputDateRangePicker({
     Key? key,
     Jalali? initialStartDate,
     Jalali? initialEndDate,
@@ -88,16 +88,16 @@ class PInputDateRangePicker extends StatefulWidget {
 
   /// If true, this the date fields will validate and update their error text
   /// immediately after every change. Otherwise, you must call
-  /// [PInputDateRangePickerState.validate] to validate.
+  /// [DInputDateRangePickerState.validate] to validate.
   final bool autovalidate;
 
   @override
-  PInputDateRangePickerState createState() => PInputDateRangePickerState();
+  DInputDateRangePickerState createState() => DInputDateRangePickerState();
 }
 
-/// The current state of an [PInputDateRangePicker]. Can be used to
+/// The current state of an [DInputDateRangePicker]. Can be used to
 /// [validate] the date field entries.
-class PInputDateRangePickerState extends State<PInputDateRangePicker> {
+class DInputDateRangePickerState extends State<DInputDateRangePicker> {
   String? _startInputText;
   String? _endInputText;
   Jalali? _startDate;

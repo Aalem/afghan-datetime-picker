@@ -1,7 +1,6 @@
 import 'dart:ui' show hashValues;
 
-import 'package:persian_datetime_picker/src/date/shamsi_date.dart';
-
+import 'package:dari_datetime_picker/src/date/shamsi_date.dart';
 /// Mode of the date picker dialog.
 ///
 /// Either a calendar or text input. In [calendar] mode, a calendar view is
@@ -12,7 +11,7 @@ import 'package:persian_datetime_picker/src/date/shamsi_date.dart';
 ///
 ///  * [showDatePicker] and [showDateRangePicker], which use this to control
 ///    the initial entry mode of their dialogs.
-enum PDatePickerEntryMode {
+enum DDatePickerEntryMode {
   /// Tapping on a calendar.
   calendar,
   /// only calendar.
@@ -32,7 +31,7 @@ enum PDatePickerEntryMode {
 ///  * [showDatePicker], which shows a dialog that contains a material design
 ///    date picker.
 ///  * [CalendarDatePicker], widget which implements the material design date picker.
-enum PDatePickerMode {
+enum DDatePickerMode {
   /// Choosing a month and day.
   day,
 
@@ -44,7 +43,7 @@ enum PDatePickerMode {
 ///
 /// See [showDatePicker], which has a [SelectableDayPredicate] parameter used
 /// to specify allowable days in the date picker.
-typedef PSelectableDayPredicate = bool Function(Jalali? day);
+typedef DSelectableDayPredicate = bool Function(Jalali? day);
 
 /// Encapsulates a start and end [Jalali] that represent the range of dates
 /// between them.

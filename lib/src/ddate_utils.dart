@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:persian_datetime_picker/src/date/shamsi_date.dart';
-
-import 'pdate_picker_common.dart';
+import 'package:dari_datetime_picker/src/date/shamsi_date.dart';
+import 'ddate_picker_common.dart';
 
 /// Returns a [Jalali] with just the date of the original, but no time set.
 Jalali dateOnly(Jalali date) {
@@ -192,7 +191,8 @@ String formatYear(Jalali date) {
 }
 
 String formatMonthYear(Jalali date) {
-  return '${date.formatter.mm} ${date.formatter.yy}';
+  return '${date.formatter.mN} - ${date.formatter.yyyy}';
+  // return '${date.formatter.mm} ${date.formatter.yy}';
 }
 
 String formatFullDate(Jalali date) {
@@ -234,7 +234,7 @@ class JalaliDate {
   static const int esfand = 12;
   static const int monthsPerYear = 12;
 
-  static const List<String> months = <String>[
+  static const List<String> persianMonths = <String>[
     'فروردین',
     'اردیبهشت',
     'خرداد',
@@ -248,6 +248,37 @@ class JalaliDate {
     'بهمن',
     'اسفند',
   ];
+
+  static const List<String> dariMonths = <String>[
+    'حمل',
+    'ثور',
+    'جوزا',
+    'سرطان',
+    'اسد',
+    'سنبله',
+    'میزان',
+    'عقرب',
+    'قوس',
+    'جدی',
+    'دلو',
+    'حوت',
+  ];
+
+  static const List<String> pashtoMonths = <String>[
+    'وری',
+    'غویی',
+    'غبرګل',
+    'چنګاښ',
+    'زمری',
+    'وږی',
+    'تله',
+    'لندی',
+    'سلواغه',
+    'اوبه',
+    'جوب',
+    'زمونږ',
+  ];
+
 }
 
 extension JalaliExt on Jalali {

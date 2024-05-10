@@ -4,8 +4,8 @@ import 'dart:math' as math;
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:persian_datetime_picker/persian_datetime_picker.dart';
-import 'package:persian_datetime_picker/src/cupertino/strings.dart';
+import 'package:dari_datetime_picker/dari_datetime_picker.dart';
+import 'package:dari_datetime_picker/src/cupertino/strings.dart';
 
 import 'picker.dart';
 
@@ -129,16 +129,16 @@ class _DatePickerLayoutDelegate extends MultiChildLayoutDelegate {
   }
 }
 
-/// Different display modes of [PCupertinoDatePicker].
+/// Different display modes of [DCupertinoDatePicker].
 ///
 /// See also:
 ///
-///  * [PCupertinoDatePicker], the class that implements different display modes
+///  * [DCupertinoDatePicker], the class that implements different display modes
 ///    of the iOS-style date picker.
-///  * [PCupertinoPicker], the class that implements a content agnostic spinner UI.
-enum PCupertinoDatePickerMode {
+///  * [DCupertinoPicker], the class that implements a content agnostic spinner UI.
+enum DCupertinoDatePickerMode {
   /// Mode that shows the date in hour, minute, and (optional) an AM/PM designation.
-  /// The AM/PM designation is shown only if [PCupertinoDatePicker] does not use 24h format.
+  /// The AM/PM designation is shown only if [DCupertinoDatePicker] does not use 24h format.
   /// Column order is subject to internationalization.
   ///
   /// Example: ` 4 | 14 | PM `.
@@ -153,7 +153,7 @@ enum PCupertinoDatePickerMode {
 
   /// Mode that shows the date as day of the week, month, day of month and
   /// the time in hour, minute, and (optional) an AM/PM designation.
-  /// The AM/PM designation is shown only if [PCupertinoDatePicker] does not use 24h format.
+  /// The AM/PM designation is shown only if [DCupertinoDatePicker] does not use 24h format.
   /// Column order is subject to internationalization.
   ///
   /// Example: ` Fri Jul 13 | 4 | 14 | PM `
@@ -180,7 +180,7 @@ enum _PickerColumnType {
 
 /// A date picker widget in iOS style.
 ///
-/// There are several modes of the date picker listed in [PCupertinoDatePickerMode].
+/// There are several modes of the date picker listed in [DCupertinoDatePickerMode].
 ///
 /// The class will display its children as consecutive columns. Its children
 /// order is based on internationalization.
@@ -200,17 +200,17 @@ enum _PickerColumnType {
 /// See also:
 ///
 ///  * [CupertinoTimerPicker], the class that implements the iOS-style timer picker.
-///  * [PCupertinoPicker], the class that implements a content agnostic spinner UI.
-class PCupertinoDatePicker extends StatelessWidget {
+///  * [DCupertinoPicker], the class that implements a content agnostic spinner UI.
+class DCupertinoDatePicker extends StatelessWidget {
   /// Constructs an iOS style date picker.
   ///
-  /// [mode] is one of the mode listed in [PCupertinoDatePickerMode] and defaults
-  /// to [PCupertinoDatePickerMode.dateAndTime].
+  /// [mode] is one of the mode listed in [DCupertinoDatePickerMode] and defaults
+  /// to [DCupertinoDatePickerMode.dateAndTime].
   ///
   /// [onDateTimeChanged] is the callback called when the selected date or time
-  /// changes and must not be null. When in [PCupertinoDatePickerMode.time] mode,
+  /// changes and must not be null. When in [DCupertinoDatePickerMode.time] mode,
   /// the year, month and day will be the same as [initialDateTime]. When in
-  /// [PCupertinoDatePickerMode.date] mode, this callback will always report the
+  /// [DCupertinoDatePickerMode.date] mode, this callback will always report the
   /// start time of the currently selected day.
   ///
   /// [initialDateTime] is the initial date time of the picker. Defaults to the
@@ -220,29 +220,29 @@ class PCupertinoDatePicker extends StatelessWidget {
   ///
   /// [minimumDate] is the minimum selectable [Jalali] of the picker. When set
   /// to null, the picker does not limit the minimum [Jalali] the user can pick.
-  /// In [PCupertinoDatePickerMode.time] mode, [minimumDate] should typically be
+  /// In [DCupertinoDatePickerMode.time] mode, [minimumDate] should typically be
   /// on the same date as [initialDateTime], as the picker will not limit the
   /// minimum time the user can pick if it's set to a date earlier than that.
   ///
   /// [maximumDate] is the maximum selectable [Jalali] of the picker. When set
   /// to null, the picker does not limit the maximum [Jalali] the user can pick.
-  /// In [PCupertinoDatePickerMode.time] mode, [maximumDate] should typically be
+  /// In [DCupertinoDatePickerMode.time] mode, [maximumDate] should typically be
   /// on the same date as [initialDateTime], as the picker will not limit the
   /// maximum time the user can pick if it's set to a date later than that.
   ///
   /// [minimumYear] is the minimum year that the picker can be scrolled to in
-  /// [PCupertinoDatePickerMode.date] mode. Defaults to 1 and must not be null.
+  /// [DCupertinoDatePickerMode.date] mode. Defaults to 1 and must not be null.
   ///
   /// [maximumYear] is the maximum year that the picker can be scrolled to in
-  /// [PCupertinoDatePickerMode.date] mode. Null if there's no limit.
+  /// [DCupertinoDatePickerMode.date] mode. Null if there's no limit.
   ///
   /// [minuteInterval] is the granularity of the minute spinner. Must be a
   /// positive integer factor of 60.
   ///
   /// [use24hFormat] decides whether 24 hour format is used. Defaults to false.
-  PCupertinoDatePicker({
+  DCupertinoDatePicker({
     Key? key,
-    this.mode = PCupertinoDatePickerMode.dateAndTime,
+    this.mode = DCupertinoDatePickerMode.dateAndTime,
     required this.onDateTimeChanged,
     Jalali? initialDateTime,
     this.minimumDate,
@@ -259,36 +259,36 @@ class PCupertinoDatePicker extends StatelessWidget {
         ),
         super(key: key) {
     assert(
-      mode != PCupertinoDatePickerMode.dateAndTime ||
+      mode != DCupertinoDatePickerMode.dateAndTime ||
           minimumDate == null ||
           !this.initialDateTime.isBefore(minimumDate!),
       'initial date is before minimum date',
     );
     assert(
-      mode != PCupertinoDatePickerMode.dateAndTime ||
+      mode != DCupertinoDatePickerMode.dateAndTime ||
           maximumDate == null ||
           !this.initialDateTime.isAfter(maximumDate!),
       'initial date is after maximum date',
     );
     assert(
-      mode != PCupertinoDatePickerMode.date ||
+      mode != DCupertinoDatePickerMode.date ||
           (minimumYear >= 1 && this.initialDateTime.year >= minimumYear),
       'initial year is not greater than minimum year, or minimum year is not positive',
     );
     assert(
-      mode != PCupertinoDatePickerMode.date ||
+      mode != DCupertinoDatePickerMode.date ||
           maximumYear == null ||
           this.initialDateTime.year <= maximumYear!,
       'initial year is not smaller than maximum year',
     );
     assert(
-      mode != PCupertinoDatePickerMode.date ||
+      mode != DCupertinoDatePickerMode.date ||
           minimumDate == null ||
           !minimumDate!.isAfter(this.initialDateTime),
       'initial date ${this.initialDateTime} is not greater than or equal to minimumDate $minimumDate',
     );
     assert(
-      mode != PCupertinoDatePickerMode.date ||
+      mode != DCupertinoDatePickerMode.date ||
           maximumDate == null ||
           !maximumDate!.isBefore(this.initialDateTime),
       'initial date ${this.initialDateTime} is not less than or equal to maximumDate $maximumDate',
@@ -302,8 +302,8 @@ class PCupertinoDatePicker extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     switch (mode) {
-      case PCupertinoDatePickerMode.time:
-      case PCupertinoDatePickerMode.dateAndTime:
+      case DCupertinoDatePickerMode.time:
+      case DCupertinoDatePickerMode.dateAndTime:
         return _CupertinoDatePickerDateTime(
           backgroundColor: backgroundColor,
           initialDateTime: initialDateTime,
@@ -316,7 +316,7 @@ class PCupertinoDatePicker extends StatelessWidget {
           onDateTimeChanged: onDateTimeChanged,
           use24hFormat: use24hFormat,
         );
-      case PCupertinoDatePickerMode.date:
+      case DCupertinoDatePickerMode.date:
         return _CupertinoDatePickerDate(
           backgroundColor: backgroundColor,
           initialDateTime: initialDateTime,
@@ -332,10 +332,10 @@ class PCupertinoDatePicker extends StatelessWidget {
     }
   }
 
-  /// The mode of the date picker as one of [PCupertinoDatePickerMode].
-  /// Defaults to [PCupertinoDatePickerMode.dateAndTime]. Cannot be null and
+  /// The mode of the date picker as one of [DCupertinoDatePickerMode].
+  /// Defaults to [DCupertinoDatePickerMode.dateAndTime]. Cannot be null and
   /// value cannot change after initial build.
-  final PCupertinoDatePickerMode mode;
+  final DCupertinoDatePickerMode mode;
 
   /// The initial date and/or time of the picker. Defaults to the present date
   /// and time and must not be null. The present must conform to the intervals
@@ -351,7 +351,7 @@ class PCupertinoDatePicker extends StatelessWidget {
   /// than [minimumDate], but the [onDateTimeChanged] will not be called on
   /// these [Jalali]s. Once let go, the picker will scroll back to [minimumDate].
   ///
-  /// In [PCupertinoDatePickerMode.time] mode, a time becomes unselectable if the
+  /// In [DCupertinoDatePickerMode.time] mode, a time becomes unselectable if the
   /// [Jalali] produced by combining that particular time and the date part of
   /// [initialDateTime] is earlier than [minimumDate]. So typically [minimumDate]
   /// needs to be set to a [Jalali] that is on the same date as [initialDateTime].
@@ -366,7 +366,7 @@ class PCupertinoDatePicker extends StatelessWidget {
   /// than [maximumDate], but the [onDateTimeChanged] will not be called on
   /// these [Jalali]s. Once let go, the picker will scroll back to [maximumDate].
   ///
-  /// In [PCupertinoDatePickerMode.time] mode, a time becomes unselectable if the
+  /// In [DCupertinoDatePickerMode.time] mode, a time becomes unselectable if the
   /// [Jalali] produced by combining that particular time and the date part of
   /// [initialDateTime] is later than [maximumDate]. So typically [maximumDate]
   /// needs to be set to a [Jalali] that is on the same date as [initialDateTime].
@@ -376,11 +376,11 @@ class PCupertinoDatePicker extends StatelessWidget {
   final Jalali? maximumDate;
 
   /// Minimum year that the picker can be scrolled to in
-  /// [PCupertinoDatePickerMode.date] mode. Defaults to 1 and must not be null.
+  /// [DCupertinoDatePickerMode.date] mode. Defaults to 1 and must not be null.
   final int minimumYear;
 
   /// Maximum year that the picker can be scrolled to in
-  /// [PCupertinoDatePickerMode.date] mode. Null if there's no limit.
+  /// [DCupertinoDatePickerMode.date] mode. Null if there's no limit.
   final int? maximumYear;
 
   /// The granularity of the minutes spinner, if it is shown in the current mode.
@@ -520,7 +520,7 @@ typedef _ColumnBuilder = Widget Function(
 /// See also:
 ///
 ///  * [CupertinoTimerPicker], the class that implements the iOS-style timer picker.
-///  * [PCupertinoPicker], the class that implements a content agnostic spinner UI.
+///  * [DCupertinoPicker], the class that implements a content agnostic spinner UI.
 enum CupertinoTimerPickerMode {
   /// Mode that shows the timer duration in hour and minute.
   ///
@@ -552,9 +552,9 @@ enum CupertinoTimerPickerMode {
 ///
 /// See also:
 ///
-///  * [PCupertinoDatePicker], the class that implements different display modes
+///  * [DCupertinoDatePicker], the class that implements different display modes
 ///    of the iOS-style date picker.
-///  * [PCupertinoPicker], the class that implements a content agnostic spinner UI.
+///  * [DCupertinoPicker], the class that implements a content agnostic spinner UI.
 class CupertinoTimerPicker extends StatefulWidget {
   /// Constructs an iOS style countdown timer picker.
   ///
@@ -792,7 +792,7 @@ class _CupertinoTimerPickerState extends State<CupertinoTimerPicker> {
   }
 
   Widget _buildHourPicker(EdgeInsetsDirectional additionalPadding) {
-    return PCupertinoPicker(
+    return DCupertinoPicker(
       scrollController: FixedExtentScrollController(initialItem: selectedHour!),
       offAxisFraction: -0.5 * textDirectionFactor,
       itemExtent: _kItemExtent,
@@ -857,7 +857,7 @@ class _CupertinoTimerPickerState extends State<CupertinoTimerPicker> {
         offAxisFraction = -0.5 * textDirectionFactor;
     }
 
-    return PCupertinoPicker(
+    return DCupertinoPicker(
       scrollController: FixedExtentScrollController(
         initialItem: selectedMinute! ~/ widget.minuteInterval,
       ),
@@ -918,7 +918,7 @@ class _CupertinoTimerPickerState extends State<CupertinoTimerPicker> {
   Widget _buildSecondPicker(EdgeInsetsDirectional additionalPadding) {
     final double offAxisFraction = 0.5 * textDirectionFactor;
 
-    return PCupertinoPicker(
+    return DCupertinoPicker(
       scrollController: FixedExtentScrollController(
         initialItem: selectedSecond! ~/ widget.secondInterval,
       ),
@@ -1066,7 +1066,7 @@ class _CupertinoTimerPickerState extends State<CupertinoTimerPicker> {
 }
 
 class _CupertinoDatePickerDateTime extends StatefulWidget {
-  final PCupertinoDatePickerMode mode;
+  final DCupertinoDatePickerMode mode;
   final Jalali initialDateTime;
   final Jalali? minimumDate;
   final Jalali? maximumDate;
@@ -1118,11 +1118,11 @@ class _CupertinoDatePickerDateTimeState
   // 0 if the current mode does not involve a date.
   int get selectedDayFromInitial {
     switch (widget.mode) {
-      case PCupertinoDatePickerMode.dateAndTime:
+      case DCupertinoDatePickerMode.dateAndTime:
         return dateController!.hasClients ? dateController!.selectedItem : 0;
-      case PCupertinoDatePickerMode.time:
+      case DCupertinoDatePickerMode.time:
         return 0;
-      case PCupertinoDatePickerMode.date:
+      case DCupertinoDatePickerMode.date:
         break;
     }
     assert(
@@ -1284,7 +1284,7 @@ class _CupertinoDatePickerDateTimeState
   double? _getEstimatedColumnWidth(_PickerColumnType columnType) {
     if (estimatedColumnWidths[columnType.index] == null) {
       estimatedColumnWidths[columnType.index] =
-          PCupertinoDatePicker._getColumnWidth(
+          DCupertinoDatePicker._getColumnWidth(
               columnType, localizations, context);
     }
 
@@ -1334,7 +1334,7 @@ class _CupertinoDatePickerDateTimeState
 
         return false;
       },
-      child: PCupertinoPicker.builder(
+      child: DCupertinoPicker.builder(
         scrollController: dateController,
         offAxisFraction: offAxisFraction,
         itemExtent: _kItemExtent,
@@ -1410,7 +1410,7 @@ class _CupertinoDatePickerDateTimeState
 
         return false;
       },
-      child: PCupertinoPicker(
+      child: DCupertinoPicker(
         scrollController: hourController,
         offAxisFraction: offAxisFraction,
         itemExtent: _kItemExtent,
@@ -1482,7 +1482,7 @@ class _CupertinoDatePickerDateTimeState
 
         return false;
       },
-      child: PCupertinoPicker(
+      child: DCupertinoPicker(
         scrollController: minuteController,
         offAxisFraction: offAxisFraction,
         itemExtent: _kItemExtent,
@@ -1535,7 +1535,7 @@ class _CupertinoDatePickerDateTimeState
 
         return false;
       },
-      child: PCupertinoPicker(
+      child: DCupertinoPicker(
         scrollController: meridiemController,
         offAxisFraction: offAxisFraction,
         itemExtent: _kItemExtent,
@@ -1651,7 +1651,7 @@ class _CupertinoDatePickerDateTimeState
     }
 
     // Adds medium date column if the picker's mode is date and time.
-    if (widget.mode == PCupertinoDatePickerMode.dateAndTime) {
+    if (widget.mode == DCupertinoDatePickerMode.dateAndTime) {
       if (StringsText.datePickerDateTimeOrder ==
               DatePickerDateTimeOrder.time_dayPeriod_date ||
           StringsText.datePickerDateTimeOrder ==
@@ -1724,7 +1724,7 @@ class _CupertinoDatePickerDateTimeState
 }
 
 class _CupertinoDatePickerDate extends StatefulWidget {
-  final PCupertinoDatePickerMode mode;
+  final DCupertinoDatePickerMode mode;
   final Jalali initialDateTime;
   final Jalali? minimumDate;
   final Jalali? maximumDate;
@@ -1835,13 +1835,13 @@ class _CupertinoDatePickerDateState extends State<_CupertinoDatePickerDate> {
 
   void _refreshEstimatedColumnWidths() {
     estimatedColumnWidths[_PickerColumnType.dayOfMonth.index] =
-        PCupertinoDatePicker._getColumnWidth(
+        DCupertinoDatePicker._getColumnWidth(
             _PickerColumnType.dayOfMonth, localizations, context);
     estimatedColumnWidths[_PickerColumnType.month.index] =
-        PCupertinoDatePicker._getColumnWidth(
+        DCupertinoDatePicker._getColumnWidth(
             _PickerColumnType.month, localizations, context);
     estimatedColumnWidths[_PickerColumnType.year.index] =
-        PCupertinoDatePicker._getColumnWidth(
+        DCupertinoDatePicker._getColumnWidth(
             _PickerColumnType.year, localizations, context);
   }
 
@@ -1870,7 +1870,7 @@ class _CupertinoDatePickerDateState extends State<_CupertinoDatePickerDate> {
 
         return false;
       },
-      child: PCupertinoPicker(
+      child: DCupertinoPicker(
         scrollController: dayController,
         offAxisFraction: offAxisFraction,
         itemExtent: _kItemExtent,
@@ -1917,7 +1917,7 @@ class _CupertinoDatePickerDateState extends State<_CupertinoDatePickerDate> {
 
         return false;
       },
-      child: PCupertinoPicker(
+      child: DCupertinoPicker(
         scrollController: monthController,
         offAxisFraction: offAxisFraction,
         itemExtent: _kItemExtent,
@@ -1969,7 +1969,7 @@ class _CupertinoDatePickerDateState extends State<_CupertinoDatePickerDate> {
 
         return false;
       },
-      child: PCupertinoPicker.builder(
+      child: DCupertinoPicker.builder(
         scrollController: yearController,
         itemExtent: _kItemExtent,
         offAxisFraction: offAxisFraction,

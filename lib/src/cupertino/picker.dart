@@ -42,7 +42,7 @@ const double _kOverAndUnderCenterOpacity = 0.447;
 ///  * [ListWheelScrollView], the generic widget backing this picker without
 ///    the iOS design specific chrome.
 ///  * <https://developer.apple.com/ios/human-interface-guidelines/controls/pickers/>
-class PCupertinoPicker extends StatefulWidget {
+class DCupertinoPicker extends StatefulWidget {
   /// Creates a picker from a concrete list of children.
   ///
   /// The [diameterRatio] and [itemExtent] arguments must not be null. The
@@ -61,7 +61,7 @@ class PCupertinoPicker extends StatefulWidget {
   /// scrolled infinitely.  If set to true, scrolling past the end of the list
   /// will loop the list back to the beginning.  If set to false, the list will
   /// stop scrolling when you reach the end or the beginning.
-  PCupertinoPicker({
+  DCupertinoPicker({
     Key? key,
     this.diameterRatio = _kDefaultDiameterRatio,
     this.backgroundColor,
@@ -101,7 +101,7 @@ class PCupertinoPicker extends StatefulWidget {
   /// The [backgroundColor] defaults to null, which disables background painting entirely.
   /// (i.e. the picker is going to have a completely transparent background), to match
   /// the native UIPicker and UIDatePicker.
-  PCupertinoPicker.builder({
+  DCupertinoPicker.builder({
     Key? key,
     this.diameterRatio = _kDefaultDiameterRatio,
     this.backgroundColor,
@@ -181,10 +181,10 @@ class PCupertinoPicker extends StatefulWidget {
   final ListWheelChildDelegate childDelegate;
 
   @override
-  State<StatefulWidget> createState() => _PCupertinoPickerState();
+  State<StatefulWidget> createState() => _DCupertinoPickerState();
 }
 
-class _PCupertinoPickerState extends State<PCupertinoPicker> {
+class _DCupertinoPickerState extends State<DCupertinoPicker> {
   int? _lastHapticIndex;
   FixedExtentScrollController? _controller;
 
@@ -197,7 +197,7 @@ class _PCupertinoPickerState extends State<PCupertinoPicker> {
   }
 
   @override
-  void didUpdateWidget(PCupertinoPicker oldWidget) {
+  void didUpdateWidget(DCupertinoPicker oldWidget) {
     if (widget.scrollController != null && oldWidget.scrollController == null) {
       _controller = null;
     } else if (widget.scrollController == null &&

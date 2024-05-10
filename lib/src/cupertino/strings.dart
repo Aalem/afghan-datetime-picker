@@ -1,5 +1,5 @@
 import 'package:flutter/cupertino.dart';
-import 'package:persian_datetime_picker/persian_datetime_picker.dart';
+import 'package:dari_datetime_picker/dari_datetime_picker.dart';
 
 
 class StringsText {
@@ -7,7 +7,7 @@ class StringsText {
  static String datePickerYear(int yearIndex) => yearIndex.toString();
 
   
- static String datePickerMonth(int monthIndex) => JalaliDate.months[monthIndex - 1];
+ static String datePickerMonth(int monthIndex) => JalaliDate.dariMonths[monthIndex - 1];
 
   
  static String datePickerDayOfMonth(int dayIndex) => dayIndex.toString();

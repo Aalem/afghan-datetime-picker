@@ -1,13 +1,12 @@
 import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
-import 'package:persian_datetime_picker/src/date/shamsi_date.dart';
-
-import 'pcalendar_date_range_picker.dart';
-import 'pdate_picker_common.dart';
-import 'pdate_picker_header.dart';
-import 'pdate_utils.dart' as utils;
-import 'pinput_date_range_picker.dart';
+import 'package:dari_datetime_picker/src/date/shamsi_date.dart';
+import 'dcalendar_date_range_picker.dart';
+import 'ddate_picker_common.dart';
+import 'ddate_picker_header.dart';
+import 'ddate_utils.dart' as utils;
+import 'dinput_date_range_picker.dart';
 
 const Size _inputPortraitDialogSize = Size(330.0, 270.0);
 const Size _inputLandscapeDialogSize = Size(496, 164.0);
@@ -39,9 +38,9 @@ const double _inputFormLandscapeHeight = 108.0;
 /// `Jalali.now()` will be used.
 ///
 /// An optional [initialEntryMode] argument can be used to display the date
-/// picker in the [PDatePickerEntryMode.calendar] (a scrollable calendar month
-/// grid) or [PDatePickerEntryMode.input] (two text input fields) mode.
-/// It defaults to [PDatePickerEntryMode.calendar] and must be non-null.
+/// picker in the [DDatePickerEntryMode.calendar] (a scrollable calendar month
+/// grid) or [DDatePickerEntryMode.input] (two text input fields) mode.
+/// It defaults to [DDatePickerEntryMode.calendar] and must be non-null.
 ///
 /// The following optional string parameters allow you to override the default
 /// text used for various parts of the dialog:
@@ -86,13 +85,13 @@ const double _inputFormLandscapeHeight = 108.0;
 ///    select a single date.
 ///  * [JalaliRange], which is used to describe a date range.
 ///
-Future<JalaliRange?> showPersianDateRangePicker({
+Future<JalaliRange?> showDariDateRangePicker({
   required BuildContext context,
   JalaliRange? initialDateRange,
   required Jalali firstDate,
   required Jalali lastDate,
   Jalali? currentDate,
-  PDatePickerEntryMode initialEntryMode = PDatePickerEntryMode.calendar,
+  DDatePickerEntryMode initialEntryMode = DDatePickerEntryMode.calendar,
   String? helpText,
   bool? showEntryModeIcon,
   String? cancelText,
@@ -202,7 +201,7 @@ class _DateRangePickerDialog extends StatefulWidget {
     required this.firstDate,
     required this.lastDate,
     this.currentDate,
-    this.initialEntryMode = PDatePickerEntryMode.calendar,
+    this.initialEntryMode = DDatePickerEntryMode.calendar,
     this.helpText,
     this.showEntryModeIcon,
     this.cancelText,
@@ -221,7 +220,7 @@ class _DateRangePickerDialog extends StatefulWidget {
   final Jalali firstDate;
   final Jalali lastDate;
   final Jalali? currentDate;
-  final PDatePickerEntryMode initialEntryMode;
+  final DDatePickerEntryMode initialEntryMode;
   final String? cancelText;
   final String? confirmText;
   final String? saveText;
@@ -240,13 +239,13 @@ class _DateRangePickerDialog extends StatefulWidget {
 }
 
 class _DateRangePickerDialogState extends State<_DateRangePickerDialog> {
-  PDatePickerEntryMode? _entryMode;
+  DDatePickerEntryMode? _entryMode;
   Jalali? _selectedStart;
   Jalali? _selectedEnd;
   late bool _autoValidate;
   final GlobalKey _calendarPickerKey = GlobalKey();
-  final GlobalKey<PInputDateRangePickerState> _inputPickerKey =
-      GlobalKey<PInputDateRangePickerState>();
+  final GlobalKey<DInputDateRangePickerState> _inputPickerKey =
+      GlobalKey<DInputDateRangePickerState>();
 
   @override
   void initState() {
@@ -258,8 +257,8 @@ class _DateRangePickerDialogState extends State<_DateRangePickerDialog> {
   }
 
   void _handleOk() {
-    if (_entryMode == PDatePickerEntryMode.input) {
-      final PInputDateRangePickerState picker = _inputPickerKey.currentState!;
+    if (_entryMode == DDatePickerEntryMode.input) {
+      final DInputDateRangePickerState picker = _inputPickerKey.currentState!;
       if (!picker.validate()) {
         setState(() {
           _autoValidate = true;
@@ -281,19 +280,19 @@ class _DateRangePickerDialogState extends State<_DateRangePickerDialog> {
   void _handleEntryModeToggle() {
     setState(() {
       switch (_entryMode) {
-        case PDatePickerEntryMode.calendar:
+        case DDatePickerEntryMode.calendar:
           _autoValidate = false;
-          _entryMode = PDatePickerEntryMode.input;
+          _entryMode = DDatePickerEntryMode.input;
           break;
 
-        case PDatePickerEntryMode.input:
+        case DDatePickerEntryMode.input:
           // If invalid range (start after end), then just use the start date
           if (_selectedStart != null &&
               _selectedEnd != null &&
               _selectedStart!.isAfter(_selectedEnd!)) {
             _selectedEnd = null;
           }
-          _entryMode = PDatePickerEntryMode.calendar;
+          _entryMode = DDatePickerEntryMode.calendar;
           break;
         default:
           break;
@@ -324,7 +323,7 @@ class _DateRangePickerDialogState extends State<_DateRangePickerDialog> {
     double? elevation;
     EdgeInsets? insetPadding;
     switch (_entryMode) {
-      case PDatePickerEntryMode.calendar:
+      case DDatePickerEntryMode.calendar:
         contents = _CalendarRangePickerDialog(
           key: _calendarPickerKey,
           selectedStartDate: _selectedStart,
@@ -348,7 +347,7 @@ class _DateRangePickerDialogState extends State<_DateRangePickerDialog> {
         elevation = 0;
         break;
 
-      case PDatePickerEntryMode.input:
+      case DDatePickerEntryMode.input:
         contents = _PInputDateRangePickerDialog(
           selectedStartDate: _selectedStart,
           selectedEndDate: _selectedEnd,
@@ -361,7 +360,7 @@ class _DateRangePickerDialogState extends State<_DateRangePickerDialog> {
             child: Column(
               children: <Widget>[
                 const Spacer(),
-                PInputDateRangePicker(
+                DInputDateRangePicker(
                   key: _inputPickerKey,
                   initialStartDate: _selectedStart,
                   initialEndDate: _selectedEnd,
@@ -572,7 +571,7 @@ class _CalendarRangePickerDialog extends StatelessWidget {
             ]),
           ),
         ),
-        body: PCalendarDateRangePicker(
+        body: DCalendarDateRangePicker(
           initialStartDate: selectedStartDate,
           initialEndDate: selectedEndDate,
           firstDate: firstDate,
@@ -650,7 +649,7 @@ class _PInputDateRangePickerDialog extends StatelessWidget {
         ? '${selectedStartDate!.formatMediumDate()} – ${selectedEndDate!.formatMediumDate()}'
         : '';
 
-    final Widget header = PDatePickerHeader(
+    final Widget header = DDatePickerHeader(
       helpText: helpText,
       titleText: dateText,
       titleSemanticsLabel: semanticDateText,

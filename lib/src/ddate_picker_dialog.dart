@@ -5,13 +5,12 @@
 import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
-import 'package:persian_datetime_picker/src/date/shamsi_date.dart';
-
-import 'pcalendar_date_picker.dart';
-import 'pdate_picker_common.dart';
-import 'pdate_picker_header.dart';
-import 'pdate_utils.dart' as utils;
-import 'pinput_date_picker.dart';
+import 'package:dari_datetime_picker/src/date/shamsi_date.dart';
+import 'dcalendar_date_picker.dart';
+import 'ddate_picker_common.dart';
+import 'ddate_picker_header.dart';
+import 'ddate_utils.dart' as utils;
+import 'dinput_date_picker.dart';
 
 const Size _calendarPortraitDialogSize = Size(330.0, 518.0);
 const Size _calendarLandscapeDialogSize = Size(496.0, 346.0);
@@ -34,9 +33,9 @@ const Duration _dialogSizeAnimationDuration = Duration(milliseconds: 200);
 /// be non-null.
 ///
 /// An optional [initialEntryMode] argument can be used to display the date
-/// picker in the [PDatePickerEntryMode.calendar] (a calendar month grid)
-/// or [PDatePickerEntryMode.input] (a text input field) mode.
-/// It defaults to [PDatePickerEntryMode.calendar] and must be non-null.
+/// picker in the [DDatePickerEntryMode.calendar] (a calendar month grid)
+/// or [DDatePickerEntryMode.input] (a text input field) mode.
+/// It defaults to [DDatePickerEntryMode.calendar] and must be non-null.
 ///
 /// An optional [selectableDayPredicate] function can be passed in to only allow
 /// certain days for selection. If provided, only the days that
@@ -76,13 +75,13 @@ const Duration _dialogSizeAnimationDuration = Duration(milliseconds: 200);
 /// calendar date picker initially appear in the [DatePickerMode.year] or
 /// [DatePickerMode.day] mode. It defaults to [DatePickerMode.day], and
 /// must be non-null.
-Future<Jalali?> showPersianDatePicker({
+Future<Jalali?> showDariDatePicker({
   required BuildContext context,
   required Jalali initialDate,
   required Jalali firstDate,
   required Jalali lastDate,
-  PDatePickerEntryMode initialEntryMode = PDatePickerEntryMode.calendar,
-  PSelectableDayPredicate? selectableDayPredicate,
+  DDatePickerEntryMode initialEntryMode = DDatePickerEntryMode.calendar,
+  DSelectableDayPredicate? selectableDayPredicate,
   String? helpText,
   String? cancelText,
   String? confirmText,
@@ -91,7 +90,7 @@ Future<Jalali?> showPersianDatePicker({
   RouteSettings? routeSettings,
   TextDirection? textDirection,
   TransitionBuilder? builder,
-  PDatePickerMode initialDatePickerMode = PDatePickerMode.day,
+  DDatePickerMode initialDatePickerMode = DDatePickerMode.day,
   String? errorFormatText,
   String? errorInvalidText,
   String fieldHintText = '##/##/####',
@@ -157,12 +156,12 @@ class _DatePickerDialog extends StatefulWidget {
     required Jalali initialDate,
     required Jalali firstDate,
     required Jalali lastDate,
-    this.initialEntryMode = PDatePickerEntryMode.calendar,
+    this.initialEntryMode = DDatePickerEntryMode.calendar,
     this.selectableDayPredicate,
     this.cancelText,
     this.confirmText,
     this.helpText,
-    this.initialCalendarMode = PDatePickerMode.day,
+    this.initialCalendarMode = DDatePickerMode.day,
     this.errorFormatText,
     this.errorInvalidText,
     this.fieldHintText,
@@ -192,10 +191,10 @@ class _DatePickerDialog extends StatefulWidget {
   /// The latest allowable [Jalali] that the user can select.
   final Jalali lastDate;
 
-  final PDatePickerEntryMode initialEntryMode;
+  final DDatePickerEntryMode initialEntryMode;
 
   /// Function to provide full control over which [Jalali] can be selected.
-  final PSelectableDayPredicate? selectableDayPredicate;
+  final DSelectableDayPredicate? selectableDayPredicate;
 
   /// The text that is displayed on the cancel button.
   final String? cancelText;
@@ -209,7 +208,7 @@ class _DatePickerDialog extends StatefulWidget {
   final String? helpText;
 
   /// The initial display of the calendar picker.
-  final PDatePickerMode initialCalendarMode;
+  final DDatePickerMode initialCalendarMode;
 
   final String? errorFormatText;
 
@@ -224,7 +223,7 @@ class _DatePickerDialog extends StatefulWidget {
 }
 
 class _DatePickerDialogState extends State<_DatePickerDialog> {
-  PDatePickerEntryMode? _entryMode;
+  DDatePickerEntryMode? _entryMode;
   Jalali? _selectedDate;
   late bool _autoValidate;
   final GlobalKey _calendarPickerKey = GlobalKey();
@@ -239,7 +238,7 @@ class _DatePickerDialogState extends State<_DatePickerDialog> {
   }
 
   void _handleOk() {
-    if (_entryMode == PDatePickerEntryMode.input ||  _entryMode == DatePickerEntryMode.inputOnly) {
+    if (_entryMode == DDatePickerEntryMode.input ||  _entryMode == DatePickerEntryMode.inputOnly) {
       final FormState form = _formKey.currentState!;
       if (!form.validate()) {
         setState(() => _autoValidate = true);
@@ -257,16 +256,16 @@ class _DatePickerDialogState extends State<_DatePickerDialog> {
   void _handelEntryModeToggle() {
     setState(() {
       switch (_entryMode) {
-        case PDatePickerEntryMode.calendar:
+        case DDatePickerEntryMode.calendar:
           _autoValidate = false;
-          _entryMode = PDatePickerEntryMode.input;
+          _entryMode = DDatePickerEntryMode.input;
           break;
-        case PDatePickerEntryMode.input:
+        case DDatePickerEntryMode.input:
           _formKey.currentState!.save();
-          _entryMode = PDatePickerEntryMode.calendar;
+          _entryMode = DDatePickerEntryMode.calendar;
           break;
-        case PDatePickerEntryMode.calendarOnly:
-        case PDatePickerEntryMode.inputOnly:
+        case DDatePickerEntryMode.calendarOnly:
+        case DDatePickerEntryMode.inputOnly:
         default:
           assert(false, 'Can not change entry mode from _entryMode');
           break;
@@ -281,16 +280,16 @@ class _DatePickerDialogState extends State<_DatePickerDialog> {
   Size? _dialogSize(BuildContext context) {
     final Orientation orientation = MediaQuery.of(context).orientation;
     switch (_entryMode) {
-      case PDatePickerEntryMode.calendar:
-      case PDatePickerEntryMode.calendarOnly:
+      case DDatePickerEntryMode.calendar:
+      case DDatePickerEntryMode.calendarOnly:
         switch (orientation) {
           case Orientation.portrait:
             return _calendarPortraitDialogSize;
           case Orientation.landscape:
             return _calendarLandscapeDialogSize;
         }
-      case PDatePickerEntryMode.input:
-      case PDatePickerEntryMode.inputOnly:
+      case DDatePickerEntryMode.input:
+      case DDatePickerEntryMode.inputOnly:
         switch (orientation) {
           case Orientation.portrait:
             return _inputPortraitDialogSize;
@@ -339,8 +338,8 @@ class _DatePickerDialogState extends State<_DatePickerDialog> {
       ],
     );
 
-    PCalendarDatePicker pCalendarDatePicker () {
-      return PCalendarDatePicker(
+    DCalendarDatePicker pCalendarDatePicker () {
+      return DCalendarDatePicker(
         key: _calendarPickerKey,
         initialDate: _selectedDate!,
         firstDate: widget.firstDate,
@@ -351,8 +350,8 @@ class _DatePickerDialogState extends State<_DatePickerDialog> {
       );
     }
 
-    PInputDatePickerFormField pInputDatePickerFormField() {
-      return PInputDatePickerFormField(
+    DInputDatePickerFormField pInputDatePickerFormField() {
+      return DInputDatePickerFormField(
         initialDate: _selectedDate,
         firstDate: widget.firstDate,
         lastDate: widget.lastDate,
@@ -371,21 +370,21 @@ class _DatePickerDialogState extends State<_DatePickerDialog> {
     IconData? entryModeIcon;
     String? entryModeTooltip;
     switch (_entryMode) {
-      case PDatePickerEntryMode.calendar:
+      case DDatePickerEntryMode.calendar:
         picker = pCalendarDatePicker();
         entryModeIcon = Icons.edit;
         // TODO(darrenaustin): localize 'Switch to input'
         entryModeTooltip = 'Switch to input';
         break;
 
-      case PDatePickerEntryMode.calendarOnly:
+      case DDatePickerEntryMode.calendarOnly:
         picker = pCalendarDatePicker();
         // TODO(darrenaustin): localize 'Switch to calendarOnly'
         entryModeIcon = null;
         entryModeTooltip = null;
         break;
 
-      case PDatePickerEntryMode.input:
+      case DDatePickerEntryMode.input:
         picker = Form(
           key: _formKey,
           autovalidateMode: _autoValidate
@@ -398,7 +397,7 @@ class _DatePickerDialogState extends State<_DatePickerDialog> {
         entryModeTooltip = 'Switch to calendar';
         break;
 
-      case PDatePickerEntryMode.inputOnly:
+      case DDatePickerEntryMode.inputOnly:
         picker = Form(
           key: _formKey,
           autovalidateMode: _autoValidate
@@ -412,7 +411,7 @@ class _DatePickerDialogState extends State<_DatePickerDialog> {
         break;
     }
 
-    final Widget header = PDatePickerHeader(
+    final Widget header = DDatePickerHeader(
       // TODO(darrenaustin): localize 'SELECT DATE'
       helpText: widget.helpText ?? 'انتخاب تاریخ',
       titleText: dateText,

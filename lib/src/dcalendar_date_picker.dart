@@ -4,14 +4,13 @@
 
 import 'dart:math' as math;
 
-import './pdate_utils.dart';
+import './ddate_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
-import 'package:persian_datetime_picker/src/date/shamsi_date.dart';
-
-import 'pdate_picker_common.dart';
-import 'pdate_utils.dart' as utils;
+import 'package:dari_datetime_picker/src/date/shamsi_date.dart';
+import 'ddate_picker_common.dart';
+import 'ddate_utils.dart' as utils;
 
 const Duration _monthScrollDuration = Duration(milliseconds: 200);
 
@@ -48,7 +47,7 @@ const double _monthNavButtonsWidth = 108.0;
 ///  * [showTimePicker], which shows a dialog that contains a material design
 ///    time picker.
 ///
-class PCalendarDatePicker extends StatefulWidget {
+class DCalendarDatePicker extends StatefulWidget {
   /// Creates a calender date picker
   ///
   /// It will display a grid of days for the [initialDate]'s month. The day
@@ -60,7 +59,7 @@ class PCalendarDatePicker extends StatefulWidget {
   /// The user interface provides a way to change the year of the month being
   /// displayed. By default it will show the day grid, but this can be changed
   /// to start in the year selection interface with [initialCalendarMode] set
-  /// to [PDatePickerMode.year].
+  /// to [DDatePickerMode.year].
   ///
   /// The [initialDate], [firstDate], [lastDate], [onDateChanged], and
   /// [initialCalendarMode] must be non-null.
@@ -72,14 +71,14 @@ class PCalendarDatePicker extends StatefulWidget {
   ///
   /// If [selectableDayPredicate] is non-null, it must return `true` for the
   /// [initialDate].
-  PCalendarDatePicker({
+  DCalendarDatePicker({
     Key? key,
     required Jalali initialDate,
     required Jalali firstDate,
     required Jalali lastDate,
     required this.onDateChanged,
     this.onDisplayedMonthChanged,
-    this.initialCalendarMode = PDatePickerMode.day,
+    this.initialCalendarMode = DDatePickerMode.day,
     this.selectableDayPredicate,
   })  : initialDate = utils.dateOnly(initialDate),
         firstDate = utils.dateOnly(firstDate),
@@ -113,18 +112,18 @@ class PCalendarDatePicker extends StatefulWidget {
   final ValueChanged<Jalali?>? onDisplayedMonthChanged;
 
   /// The initial display of the calendar picker.
-  final PDatePickerMode initialCalendarMode;
+  final DDatePickerMode initialCalendarMode;
 
   /// Function to provide full control over which dates in the calendar can be selected.
-  final PSelectableDayPredicate? selectableDayPredicate;
+  final DSelectableDayPredicate? selectableDayPredicate;
 
   @override
-  State<PCalendarDatePicker> createState() => _CalendarDatePickerState();
+  State<DCalendarDatePicker> createState() => _CalendarDatePickerState();
 }
 
-class _CalendarDatePickerState extends State<PCalendarDatePicker> {
+class _CalendarDatePickerState extends State<DCalendarDatePicker> {
   bool _announcedInitialDate = false;
-  PDatePickerMode? _mode;
+  DDatePickerMode? _mode;
   Jalali? _currentDisplayedMonthDate;
   Jalali? _selectedDate;
   final GlobalKey _monthPickerKey = GlobalKey();
@@ -167,11 +166,11 @@ class _CalendarDatePickerState extends State<PCalendarDatePicker> {
     }
   }
 
-  void _handleModeChanged(PDatePickerMode mode) {
+  void _handleModeChanged(DDatePickerMode mode) {
     _vibrate();
     setState(() {
       _mode = mode;
-      if (_mode == PDatePickerMode.day) {
+      if (_mode == DDatePickerMode.day) {
         SemanticsService.announce(
           formatMonthYear(_selectedDate!),
           _textDirection,
@@ -205,7 +204,7 @@ class _CalendarDatePickerState extends State<PCalendarDatePicker> {
     }
 
     setState(() {
-      _mode = PDatePickerMode.day;
+      _mode = DDatePickerMode.day;
       _handleMonthChanged(value);
     });
   }
@@ -221,7 +220,7 @@ class _CalendarDatePickerState extends State<PCalendarDatePicker> {
   Widget? _buildPicker() {
     assert(_mode != null);
     switch (_mode) {
-      case PDatePickerMode.day:
+      case DDatePickerMode.day:
         return _MonthPicker(
           key: _monthPickerKey,
           initialMonth: _currentDisplayedMonthDate,
@@ -233,7 +232,7 @@ class _CalendarDatePickerState extends State<PCalendarDatePicker> {
           onDisplayedMonthChanged: _handleMonthChanged,
           selectableDayPredicate: widget.selectableDayPredicate,
         );
-      case PDatePickerMode.year:
+      case DDatePickerMode.year:
         return Padding(
           padding: const EdgeInsets.only(top: _subHeaderHeight),
           child: _YearPicker(
@@ -268,9 +267,9 @@ class _CalendarDatePickerState extends State<PCalendarDatePicker> {
           title: formatMonthYear(_currentDisplayedMonthDate!),
           onTitlePressed: () {
             // Toggle the day/year mode.
-            _handleModeChanged(_mode == PDatePickerMode.day
-                ? PDatePickerMode.year
-                : PDatePickerMode.day);
+            _handleModeChanged(_mode == DDatePickerMode.day
+                ? DDatePickerMode.year
+                : DDatePickerMode.day);
           },
         ),
       ],
@@ -278,10 +277,10 @@ class _CalendarDatePickerState extends State<PCalendarDatePicker> {
   }
 }
 
-/// A button that used to toggle the [PDatePickerMode] for a date picker.
+/// A button that used to toggle the [DDatePickerMode] for a date picker.
 ///
 /// This appears above the calendar grid and allows the user to toggle the
-/// [PDatePickerMode] to display either the calendar view or the year list.
+/// [DDatePickerMode] to display either the calendar view or the year list.
 class _DatePickerModeToggleButton extends StatefulWidget {
   const _DatePickerModeToggleButton({
     required this.mode,
@@ -290,7 +289,7 @@ class _DatePickerModeToggleButton extends StatefulWidget {
   });
 
   /// The current display of the calendar picker.
-  final PDatePickerMode? mode;
+  final DDatePickerMode? mode;
 
   /// The text that displays the current month/year being viewed.
   final String title;
@@ -312,7 +311,7 @@ class _DatePickerModeToggleButtonState
   void initState() {
     super.initState();
     _controller = AnimationController(
-      value: widget.mode == PDatePickerMode.year ? 0.5 : 0,
+      value: widget.mode == DDatePickerMode.year ? 0.5 : 0,
       upperBound: 0.5,
       duration: const Duration(milliseconds: 200),
       vsync: this,
@@ -326,7 +325,7 @@ class _DatePickerModeToggleButtonState
       return;
     }
 
-    if (widget.mode == PDatePickerMode.year) {
+    if (widget.mode == DDatePickerMode.year) {
       _controller.forward();
     } else {
       _controller.reverse();
@@ -381,7 +380,7 @@ class _DatePickerModeToggleButtonState
               ),
             ),
           ),
-          if (widget.mode == PDatePickerMode.day)
+          if (widget.mode == DDatePickerMode.day)
             // Give space for the prev/next month buttons that are underneath this row
             const SizedBox(width: _monthNavButtonsWidth),
         ],
@@ -443,7 +442,7 @@ class _MonthPicker extends StatefulWidget {
   final ValueChanged<Jalali?> onDisplayedMonthChanged;
 
   /// Optional user supplied predicate function to customize selectable days.
-  final PSelectableDayPredicate? selectableDayPredicate;
+  final DSelectableDayPredicate? selectableDayPredicate;
 
   @override
   State<StatefulWidget> createState() => _MonthPickerState();
@@ -639,7 +638,7 @@ class _DayPicker extends StatelessWidget {
   final Jalali displayedMonth;
 
   /// Optional user supplied predicate function to customize selectable days.
-  final PSelectableDayPredicate? selectableDayPredicate;
+  final DSelectableDayPredicate? selectableDayPredicate;
 
   @override
   Widget build(BuildContext context) {

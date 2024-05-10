@@ -41,7 +41,7 @@ In your library add the following import:
 
 ```dart
 
-import  'package:persian_datetime_picker/persian_datetime_picker.dart';
+import  'package:persian_datetime_picker/dari_datetime_picker.dart';
 
 ```
 
