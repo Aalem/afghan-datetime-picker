@@ -442,7 +442,7 @@ class _DayHeaders extends StatelessWidget {
     final ThemeData themeData = Theme.of(context);
     final ColorScheme colorScheme = themeData.colorScheme;
     final TextStyle textStyle =
-        themeData.textTheme.subtitle2!.apply(color: colorScheme.onSurface);
+        themeData.textTheme.titleSmall!.apply(color: colorScheme.onSurface);
     final MaterialLocalizations localizations =
         MaterialLocalizations.of(context);
     final List<Widget> labels = _getDayHeaders(textStyle, localizations);
