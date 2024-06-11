@@ -486,7 +486,7 @@ class _CalendarRangePickerDialog extends StatelessWidget {
         color: selectedEndDate != null
             ? headerForeground
             : headerDisabledForeground);
-    final TextStyle saveButtonStyle = textTheme.button!.apply(
+    final TextStyle saveButtonStyle = textTheme.labelLarge!.apply(
         color: onConfirm != null ? headerForeground : headerDisabledForeground);
 
     final IconButton entryModeIcon = IconButton(
