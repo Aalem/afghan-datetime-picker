@@ -415,7 +415,7 @@ class _DateRangePickerDialogState extends State<_DateRangePickerDialog> {
         curve: Curves.easeIn,
         child: MediaQuery(
           data: MediaQuery.of(context).copyWith(
-            textScaler: TextScaler.linear(textScaleFactor),
+            textScaleFactor: textScaleFactor,
           ),
           child: Builder(builder: (BuildContext context) {
             return Directionality(
@@ -469,7 +469,7 @@ class _CalendarRangePickerDialog extends StatelessWidget {
         MaterialLocalizations.of(context);
     final Orientation orientation = MediaQuery.of(context).orientation;
     final TextTheme textTheme = theme.textTheme;
-    final Color headerForeground = colorScheme.brightness == Brightness.dark
+    final Color headerForeground = colorScheme.brightness == Brightness.light
         ? colorScheme.onPrimary
         : colorScheme.onSurface;
     final Color headerDisabledForeground = headerForeground.withOpacity(0.38);
@@ -531,7 +531,9 @@ class _CalendarRangePickerDialog extends StatelessWidget {
                     children: <Widget>[
                       Text(
                         helpText,
-                        style: textTheme.titleSmall!,
+                        style: textTheme.overline!.apply(
+                          color: headerForeground,
+                        ),
                       ),
                       const SizedBox(height: 8),
                       Row(
