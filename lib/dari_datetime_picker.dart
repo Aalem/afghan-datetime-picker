@@ -5,7 +5,6 @@ export 'src/ddate_utils.dart';
 export 'src/dinput_date_picker.dart';
 export 'src/dcalendar_date_picker.dart';
 export 'src/ddate_picker_dialog.dart';
-export 'src/dinput_date_picker.dart';
 export 'src/ddate_picker_header.dart';
 export 'src/ddate_picker_deprecated.dart';
 export 'src/ddate_picker_common.dart';
