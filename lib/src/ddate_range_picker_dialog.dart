@@ -469,7 +469,7 @@ class _CalendarRangePickerDialog extends StatelessWidget {
         MaterialLocalizations.of(context);
     final Orientation orientation = MediaQuery.of(context).orientation;
     final TextTheme textTheme = theme.textTheme;
-    final Color headerForeground = colorScheme.brightness == Brightness.light
+    final Color headerForeground = colorScheme.brightness == Brightness.dark
         ? colorScheme.onPrimary
         : colorScheme.onSurface;
     final Color headerDisabledForeground = headerForeground.withOpacity(0.38);
@@ -477,7 +477,7 @@ class _CalendarRangePickerDialog extends StatelessWidget {
         localizations, selectedStartDate, selectedEndDate);
     final String endDateText = utils.formatRangeEndDate(
         localizations, selectedStartDate, selectedEndDate, Jalali.now());
-    final TextStyle? headlineStyle = textTheme.headlineSmall;
+    final TextStyle? headlineStyle = textTheme.titleLarge;
     final TextStyle? startDateStyle = headlineStyle?.apply(
         color: selectedStartDate != null
             ? headerForeground
@@ -531,9 +531,7 @@ class _CalendarRangePickerDialog extends StatelessWidget {
                     children: <Widget>[
                       Text(
                         helpText,
-                        style: textTheme.labelSmall!.apply(
-                          color: headerForeground,
-                        ),
+                        style: textTheme.titleSmall!,
                       ),
                       const SizedBox(height: 8),
                       Row(
@@ -636,7 +634,7 @@ class _PInputDateRangePickerDialog extends StatelessWidget {
     final Orientation orientation = MediaQuery.of(context).orientation;
     final TextTheme textTheme = theme.textTheme;
 
-    final Color dateColor = colorScheme.brightness == Brightness.light
+    final Color dateColor = colorScheme.brightness == Brightness.dark
         ? colorScheme.onPrimary
         : colorScheme.onSurface;
     final TextStyle? dateStyle = orientation == Orientation.landscape
